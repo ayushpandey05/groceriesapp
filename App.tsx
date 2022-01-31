@@ -26,6 +26,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import MainStack from './screens/main-stack';
 
 const Section: React.FC<{
   title: string;
@@ -63,9 +64,10 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={{...backgroundStyle, flex: 1}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
+      <MainStack />
+      {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
@@ -88,7 +90,7 @@ const App = () => {
           </Section>
           <LearnMoreLinks />
         </View>
-      </ScrollView>
+      </ScrollView> */}
     </SafeAreaView>
   );
 };
