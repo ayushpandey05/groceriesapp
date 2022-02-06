@@ -2,7 +2,11 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import createStackNavigator from '../../components/stack-navigator';
 import useMultiState from '../../hooks/useMultiState';
+import EnterNumber from '../enter-number';
+import EnterOtp from '../enter-otp';
+import ExploreItems from '../explore-items';
 import Login from '../login';
+import MainTabNavigator from '../main-tab-navigator';
 import Welcome from '../welcome';
 
 const MainStack = createStackNavigator(
@@ -38,8 +42,20 @@ const MainStack = createStackNavigator(
     login: {
       screen: Login,
     },
+    enterNumber: {
+      screen: EnterNumber,
+    },
+    enterOtp: {
+      screen: EnterOtp,
+    },
+    mainTabScreen: {
+      screen: MainTabNavigator,
+    },
+    exploreItems: {
+      screen: ExploreItems
+    }
   },
-  'welcome',
+  'mainTabScreen',
 );
 
 export default MainStack;

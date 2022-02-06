@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Text, View, ToastAndroid} from 'react-native';
 import useBackButton from '../../hooks/useBackButton';
 import useMultiState from '../../hooks/useMultiState';
+import useUniqueId from '../../hooks/useUniqueId';
+import StackItem from './StackItem';
 
 interface StackProps {
   stack: any;
@@ -21,7 +23,19 @@ const showToast = () => {
   ToastAndroid.show('Press back again to exit.', ToastAndroid.SHORT);
 };
 
+const ScreenWithState = ({Screen, ...restScreenProps}): any => {
+  const [state, setState]: any = useMultiState({});
+  return (
+    <Screen
+      {...restScreenProps}
+      screenState={state}
+      setScreenState={setState}
+    />
+  );
+};
+
 const Stack: React.FC<StackProps> = ({stack: defaultStack, initialRoute}) => {
+  const stackId = useUniqueId();
   const [stackData, setStackData] = useMultiState({
     stack: [{screenName: initialRoute, params: {}}],
   });
@@ -87,23 +101,18 @@ const Stack: React.FC<StackProps> = ({stack: defaultStack, initialRoute}) => {
             navigation.pop(1);
           };
           return (
-            <View
-              key={`stack-${screenIndex}`}
-              style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                backgroundColor: 'white',
-              }}>
-              <Component
+            <StackItem
+              key={`stack-${stackId}-${screenIndex}`}
+              navigation={navigation}
+              index={screenIndex}>
+              <ScreenWithState
+                Screen={Component}
                 screenIndex={screenIndex}
                 screenName={screenName}
                 params={params}
                 navigation={navigation}
               />
-            </View>
+            </StackItem>
           );
         },
       )}

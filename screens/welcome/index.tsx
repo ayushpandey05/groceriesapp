@@ -2,11 +2,16 @@ import React from 'react';
 import {ImageBackground, Text} from 'react-native';
 import {WelcomeLogo} from '../../assets/images';
 import Button from '../../components/button';
+import {NavigationProps} from '../../components/stack-navigator/types';
 
 const title = `Welcome to our store`;
 const subTitle = `Ger your groceries in as fast as one hour`;
 
-const Welcome = ({navigation}) => {
+interface Props {
+  navigation: NavigationProps;
+}
+
+const Welcome: React.FC<Props> = ({navigation}) => {
   const goToLoginScreen = () => {
     navigation.push('login');
   };
